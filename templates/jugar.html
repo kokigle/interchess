@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>INTERCHESS</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.1.0/paho-mqtt.min.js"></script>
+</head>
+<body>
+    <div style="text-align: center;"> 
+        <img src="http://www.jinchess.com/chessboard/?p={{ fen }}" alt="Chess Board"height="600" width="600">
+    </div>
+    <script>
+        const clientId = 'mqttjs_' + Math.random().toString(16).substr(2, 8)
+        var client = new Paho.Client('broker.emqx.io', 8083, clientId);
+
+        client.onMessageArrived = onMessageArrived;
+        client.connect({onSuccess:onConnect});
+
+        function onConnect() {
+        console.log("Conectado MQTT");
+            client.subscribe("interchess/movimiento");
+        }
+        
+        function onMessageArrived(message) {
+            mensaje = message.payloadString;
+            if(mensaje == "jm"){
+                window.alert("Jaque Mate");
+                location.reload();
+            }
+            if(mensaje == "ahogado"){
+                window.alert("Tablas por ahogado");
+                location.reload();
+            }
+            if(mensaje == "mi"){
+                window.alert("Tablas por material insuficiente");
+                location.reload();
+            }
+            location.reload();
+        }
+    </script>
+</body>
+</html>
