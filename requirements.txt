@@ -31,7 +31,6 @@ Pygments==2.14.0
 pyinstaller==5.7.0
 pyinstaller-hooks-contrib==2022.15
 pyparsing==3.0.9
-pyscript==0.2.5
 python-dateutil==2.8.2
 pytz==2022.7.1
 pywin32-ctypes==0.2.0
