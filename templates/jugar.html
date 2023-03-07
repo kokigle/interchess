@@ -10,7 +10,8 @@
     </div>
     <script>
         const clientId = 'mqttjs_' + Math.random().toString(16).substr(2, 8)
-        var client = new Paho.Client("wss://broker.emqx.io", 8084, clientId);
+        var host = "wss://broker.emqx.io"
+        var client = new Paho.Client(host, 8084, clientId);
 
         client.onMessageArrived = onMessageArrived;
         client.connect({onSuccess:onConnect});
