@@ -19,7 +19,6 @@ kiwisolver==1.4.4
 MarkupSafe==2.1.2
 packaging==23.0
 paho-mqtt==1.6.1
-pandas==1.5.3
 parso==0.8.3
 pefile==2022.5.30
 pickleshare==0.7.5
