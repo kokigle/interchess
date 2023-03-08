@@ -75,7 +75,7 @@ def on_message(client, userdata, message):
 
 client = mqtt.Client()
 client.on_message = on_message
-client.connect('broker.emqx.io', 1883, 60)
+client.connect('broker.emqx.io', 8084, 60)
 client.subscribe("salida")
 
 if __name__ == "__main__":
