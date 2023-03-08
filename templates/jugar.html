@@ -27,7 +27,7 @@
             },
         }
         console.log('Connecting mqtt client');
-        const client = mqtt.connect(host, options);
+        const client = new Paho.Client(host, options);
         client.on('error', (err) => {
             console.log('Connection error: ', err);
             client.end();
