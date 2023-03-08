@@ -13,13 +13,6 @@
         const host = 'wss://broker.emqx.io/mqtt';
         console.log('Connecting mqtt client');
         const client = new Paho.Client(host, 8083, clientId);
-        client.on('error', (err) => {
-            console.log('Connection error: ', err);
-            client.end();
-        })
-        client.on('reconnect', () => {
-            console.log('Reconnecting...');
-        })
         client.onMessageArrived = onMessageArrived;
         client.connect({onSuccess:onConnect});
 
