@@ -78,7 +78,7 @@ def on_message(client, userdata, message):
 
 client = mqtt.Client()
 client.on_message = on_message
-client.connect(MQTT_BROKER, 1883, 60)
+client.connect(MQTT_BROKER, 8084, 60)
 client.subscribe(MQTT_TOPIC)
 
 if __name__ == '__main__':
