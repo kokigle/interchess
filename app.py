@@ -78,6 +78,6 @@ client.on_message = on_message
 client.connect('broker.emqx.io', 1883, 60)
 client.subscribe("salida")
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     client.loop_start()
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=int(os.environ.get("PORT", 5000)), debug=True)
