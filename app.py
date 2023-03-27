@@ -82,6 +82,7 @@ def on_connect(mqttc, userdata, rc):
     
 client = mqtt.Client()
 client.on_message = on_message
+client.on_connect = on_connect
 client.connect(MQTT_BROKER, 8084)
 client.subscribe(MQTT_TOPIC)
 
