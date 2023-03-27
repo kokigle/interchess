@@ -85,6 +85,7 @@ client.on_message = on_message
 client.on_connect = on_connect
 client.connect(MQTT_BROKER, 8084)
 client.subscribe(MQTT_TOPIC)
+logging.info("hola")
 
 if __name__ == '__main__':
     client.loop_start()
