@@ -78,7 +78,7 @@ def on_message(client, userdata, message):
                     pass
                 
 def on_connect(mqttc, userdata, rc):
-    print("Connected with result code "+str(rc))
+    logging.info("Connected with result code "+str(rc))
     
 client = mqtt.Client()
 client.on_message = on_message
