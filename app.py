@@ -1,6 +1,9 @@
 from flask import Flask, render_template
 import chess
 import paho.mqtt.client as mqtt
+import os
+MQTT_BROKER = os.environ.get('MQTT_BROKER')
+MQTT_TOPIC = os.environ.get('MQTT_TOPIC')
 
 app = Flask(__name__)
 
@@ -75,8 +78,8 @@ def on_message(client, userdata, message):
 
 client = mqtt.Client()
 client.on_message = on_message
-client.connect('broker.emqx.io', 1883, 60)
-client.subscribe("salida")
+client.connect(MQTT_BROKER, 1883, 60)
+client.subscribe(MQTT_TOPIC)
 
 if __name__ == '__main__':
     client.loop_start()
