@@ -1,11 +1,6 @@
 from flask import Flask, render_template
 import chess
 import paho.mqtt.client as mqtt
-import os
-import logging
-logging.basicConfig(filename='log.log', level=logging.DEBUG)
-MQTT_BROKER = os.environ.get('MQTT_BROKER')
-MQTT_TOPIC = os.environ.get('MQTT_TOPIC')
 
 app = Flask(__name__)
 
@@ -76,16 +71,11 @@ def on_message(client, userdata, message):
                         client.publish("interchess/movimiento","error")
                 except:
                     pass
-                
-def on_connect(mqttc, userdata, rc):
-    logging.info("Connected with result code "+str(rc))
     
 client = mqtt.Client()
 client.on_message = on_message
-client.on_connect = on_connect
-client.connect(MQTT_BROKER, 8084)
-client.subscribe(MQTT_TOPIC)
-logging.info("hola")
+client.connect('broker.emqx.io', 8084, 60)
+client.subscribe("salida")
 
 if __name__ == '__main__':
     client.loop_start()
