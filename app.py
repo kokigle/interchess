@@ -8,11 +8,7 @@ board = chess.Board()
 x = 0
 @app.route("/")
 def index():
-    return render_template("index.html")
-
-@app.route("/jugar")
-def jugar():
-    return render_template("jugar.html", fen=board.fen())
+    return render_template("index.html", fen=board.fen())
 
 def on_message(client, userdata, message):
     if(message.payload.decode("utf-8") != ""):
@@ -20,11 +16,6 @@ def on_message(client, userdata, message):
         global board
         global blancas
         global negras
-        global casilla
-        global casillas
-        casillas = [55,54,53,52,51,50,49,48,8,9,10,11,12,13,14,15]
-        for casilla in casillas:
-            print(casilla)
         if(x==0):
             blancas = message.payload.decode("utf-8")[0]
             if(blancas == "1"):
@@ -39,12 +30,6 @@ def on_message(client, userdata, message):
             if(find != -1 and message.payload.decode("utf-8")[0] == blancas or find == -1 and message.payload.decode("utf-8")[0] == negras):
                 try:
                     move = chess.Move.from_uci(message.payload.decode("utf-8")[1:])
-                    for casilla in casillas:
-                        print(casilla)
-                        if (board.piece_at(casilla).piece_type == chess.PAWN) and (message.payload.decode("utf-8")[4]=="8" or message.payload.decode("utf-8")[4]=="1"):
-                            print("hola")
-                            move = chess.Move.from_uci(message.payload.decode("utf-8")[1:]+"q")
-                            break
                     noerror = move in board.legal_moves
                     jm = board.is_checkmate()
                     ahogado = board.is_stalemate()
@@ -72,11 +57,12 @@ def on_message(client, userdata, message):
                 except:
                     pass
     
+
 client = mqtt.Client()
 client.on_message = on_message
-client.connect('broker.emqx.io', 8084, 60)
+client.connect('broker.emqx.io', 1883, 60)
 client.subscribe("salida")
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     client.loop_start()
-    app.run(host='0.0.0.0', port=int(os.environ.get("PORT", 5000)), debug=True)
+    app.run(debug=True)
